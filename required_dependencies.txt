@@ -1,0 +1,12 @@
+# Required Dependencies for Nithin Portfolio
+
+## Dependencies:
+- framer-motion: ^10.16.4
+- react: ^18.2.0
+- react-dom: ^18.2.0
+- react-icons: ^5.4.0
+- react-router-dom: ^6.21.1
+
+## DevDependencies:
+- @types/react: ^18.2.43
+- @types/react-dom: ^18.2.17
