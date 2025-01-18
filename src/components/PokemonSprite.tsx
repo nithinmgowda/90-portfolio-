@@ -16,10 +16,10 @@ const PokemonSprite: React.FC<PokemonSpriteProps> = ({ x, direction, onCollision
   const spriteWidth = 32;
 
   const pokemonSprites = [
-    '../assets/pokemon-sprites/pikachu-1.gif',
-    '../assets/pokemon-sprites/charmander-1.gif',
-    '../assets/pokemon-sprites/bulbasaur-1.gif',
-    '../assets/pokemon-sprites/squirtle-1.gif'
+    '/assets/pokemon-sprites/pikachu-1.gif',
+    '/assets/pokemon-sprites/charmander-1.gif',
+    '/assets/pokemon-sprites/bulbasaur-1.gif',
+    '/assets/pokemon-sprites/squirtle-1.gif'
   ];
 
   useEffect(() => {
