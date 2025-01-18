@@ -41,7 +41,7 @@ const Projects = () => {
 
   const ongoingQuest = {
     title: 'NLP Text Summarizer',
-    description: 'Currently developing an NLP Text Summarizer leveraging Hugging Face API and transformers to create accurate and concise summaries from extensive text inputs. The project focuses on enhancing text comprehension and accessibility.',
+    description: 'A project focused on summarizing text using NLP techniques to provide concise information.',
     tags: ['NLP', 'Hugging Face', 'Python', 'API Integration'],
     icon: FaRobot,
     github: 'https://github.com/nithinmgowda/Textsummarizer'
