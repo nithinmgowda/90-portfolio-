@@ -35,7 +35,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/src/assets/pokemon-bg.png');
+  background-image: url('../assets/pokemon-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
