@@ -1,5 +1,3 @@
-import { React } from 'react';
-
 interface NavbarProps {
   onNavClick: {
     home: () => void;
@@ -8,7 +6,7 @@ interface NavbarProps {
   };
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onNavClick }) => {
+const Navbar: ({ onNavClick }: NavbarProps) => JSX.Element = ({ onNavClick }) => {
   return (
     <header className="fixed top-0 left-0 right-0 h-20 z-50">
       <nav className="h-full bg-black bg-opacity-50 backdrop-blur-sm border-b-2 border-red-600/20">
