@@ -4,11 +4,12 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
 import FlyingPokemon from './components/FlyingPokemon';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
-function App() {
-  const homeRef = useRef<HTMLDivElement>(null);
-  const aboutRef = useRef<HTMLDivElement>(null);
-  const projectsRef = useRef<HTMLDivElement>(null);
+const PokemonBackground = () => {
+  const location = useLocation();
+
+  if (location.pathname !== '/') return null;
 
   const staticPokemon = [
     {
@@ -33,77 +34,96 @@ function App() {
     }
   ];
 
+  return (
+    <div 
+      className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
+      style={{ 
+        backgroundImage: 'url("/assets/pokemon-bg.png")',
+        imageRendering: 'pixelated',
+        filter: 'brightness(0.9)'
+      }}
+    >
+      {staticPokemon.map((pokemon, index) => (
+        <FlyingPokemon 
+          key={index} 
+          position={pokemon.position} 
+          sprite={pokemon.sprite} 
+          size={pokemon.size} 
+        />
+      ))}
+    </div>
+  );
+};
+
+function App() {
+  const homeRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const projectsRef = useRef<HTMLDivElement>(null);
+
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
-            backgroundImage: 'url("/assets/pokemon-bg.png")',
-            imageRendering: 'pixelated',
-            filter: 'brightness(0.9)'
-          }} 
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-20 backdrop-blur-[2px]" />
-      </div>
-
-      {/* Static Pokemon */}
-      <div className="fixed inset-0 z-50 pointer-events-auto">
-        {staticPokemon.map((pokemon, index) => (
-          <FlyingPokemon
-            key={index}
-            position={pokemon.position}
-            sprite={pokemon.sprite}
-            size={pokemon.size}
+    <Router>
+      <div className="relative min-h-screen">
+        <PokemonBackground />
+        <div className="fixed inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ 
+              backgroundImage: 'url("/assets/pokemon-bg.png")',
+              imageRendering: 'pixelated',
+              filter: 'brightness(0.9)'
+            }} 
           />
-        ))}
+          <div className="absolute inset-0 bg-black bg-opacity-20 backdrop-blur-[2px]" />
+        </div>
+        <Navbar onNavClick={{
+          home: () => scrollToSection(homeRef),
+          about: () => scrollToSection(aboutRef),
+          projects: () => scrollToSection(projectsRef)
+        }} />
+        <Routes>
+          <Route path="/" element={
+            <main className="relative z-20">
+              <section 
+                ref={homeRef} 
+                className="min-h-screen pt-24 flex items-center"
+              >
+                <div className="container mx-auto px-6">
+                  <Home />
+                </div>
+              </section>
+            </main>
+          } />
+          <Route path="/about" element={
+            <main className="relative z-20">
+              <section 
+                ref={aboutRef} 
+                className="min-h-screen pt-24 flex items-center"
+              >
+                <div className="container mx-auto px-6">
+                  <About />
+                </div>
+              </section>
+            </main>
+          } />
+          <Route path="/projects" element={
+            <main className="relative z-20">
+              <section 
+                ref={projectsRef} 
+                className="min-h-screen pt-24 flex items-center"
+              >
+                <div className="container mx-auto px-6">
+                  <Projects />
+                </div>
+              </section>
+            </main>
+          } />
+        </Routes>
       </div>
-
-      {/* Navbar */}
-      <Navbar onNavClick={{
-        home: () => scrollToSection(homeRef),
-        about: () => scrollToSection(aboutRef),
-        projects: () => scrollToSection(projectsRef)
-      }} />
-
-      {/* Main Content */}
-      <main className="relative z-20">
-        {/* Home Section */}
-        <section 
-          ref={homeRef} 
-          className="min-h-screen pt-24 flex items-center"
-        >
-          <div className="container mx-auto px-6">
-            <Home />
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section 
-          ref={aboutRef} 
-          className="min-h-screen pt-24 flex items-center"
-        >
-          <div className="container mx-auto px-6">
-            <About />
-          </div>
-        </section>
-
-        {/* Projects Section */}
-        <section 
-          ref={projectsRef} 
-          className="min-h-screen pt-24 flex items-center"
-        >
-          <div className="container mx-auto px-6">
-            <Projects />
-          </div>
-        </section>
-      </main>
-    </div>
+    </Router>
   );
 }
 
