@@ -13,22 +13,22 @@ function App() {
   const staticPokemon = [
     {
       position: 'bottom-left' as const,
-      sprite: '/src/assets/pokemon-sprites/pidgeot-1.gif',
+      sprite: '/assets/pokemon-sprites/pidgeot-1.gif',
       size: 64
     },
     {
       position: 'bottom-right' as const,
-      sprite: '/src/assets/pokemon-sprites/flygon-1.gif',
+      sprite: '/assets/pokemon-sprites/flygon-1.gif',
       size: 64
     },
     {
       position: 'bottom-center-left' as const,
-      sprite: '/src/assets/pokemon-sprites/arcanine-1.gif',
+      sprite: '/assets/pokemon-sprites/arcanine-1.gif',
       size: 64
     },
     {
       position: 'bottom-center-right' as const,
-      sprite: '/src/assets/pokemon-sprites/growlithe-1.gif',
+      sprite: '/assets/pokemon-sprites/growlithe-1.gif',
       size: 64
     }
   ];
@@ -44,7 +44,7 @@ function App() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ 
-            backgroundImage: 'url("/src/assets/pokemon-bg.png")',
+            backgroundImage: 'url("/assets/pokemon-bg.png")',
             imageRendering: 'pixelated',
             filter: 'brightness(0.9)'
           }} 

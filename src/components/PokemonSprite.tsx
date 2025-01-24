@@ -15,7 +15,7 @@ const PokemonSprite: React.FC<PokemonSpriteProps> = ({ x, direction, onCollision
   const speed = 2;
   const spriteWidth = 32;
 
-  const pokemonSprites = [
+  const sprites = [
     '/assets/pokemon-sprites/pikachu-1.gif',
     '/assets/pokemon-sprites/charmander-1.gif',
     '/assets/pokemon-sprites/bulbasaur-1.gif',
@@ -23,7 +23,7 @@ const PokemonSprite: React.FC<PokemonSpriteProps> = ({ x, direction, onCollision
   ];
 
   useEffect(() => {
-    setSprite(Math.floor(Math.random() * pokemonSprites.length));
+    setSprite(Math.floor(Math.random() * sprites.length));
   }, []);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const PokemonSprite: React.FC<PokemonSpriteProps> = ({ x, direction, onCollision
       }}
     >
       <img
-        src={pokemonSprites[sprite]}
+        src={sprites[sprite]}
         alt="Pokemon"
         className="w-full h-full"
       />
