@@ -6,21 +6,21 @@ const Projects = () => {
       title: 'Notion Clone',
       description: 'Developed a Notion Clone using the MERN stack, featuring dynamic note-taking, task management, and a sleek, responsive UI. It supports real-time collaboration and efficient CRUD operations, showcasing a seamless user experience.',
       tags: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'UI/UX'],
-      image: '/src/assets/notionclone.png',
+      image: './assets/notionclone.png',
       github: 'https://github.com/nithinmgowda/notionclone/tree/master/client'
     },
     {
       title: 'Reicetta',
       description: 'Created a recipe app using Kotlin, where AI generates recipes, suggests ingredients, and creates stunning, realistic food images. The app combines innovation with user-friendly design for a delightful cooking experience.',
       tags: ['Kotlin', 'AI', 'Mobile Dev', 'UI/UX'],
-      image: '/src/assets/recipe.png',
+      image: './assets/recipe.png',
       github: 'https://github.com/nithinmgowda/RecipeApp'
     },
     {
       title: 'Medical Search System',
       description: 'Developed a Medical Search System using React and API services, enabling users to locate the nearest hospitals for specific diseases or accidents. The system displays hospital specialists and offers a seamless search experience.',
       tags: ['React.js', 'API Integration', 'UI/UX', 'Healthcare'],
-      image: '/src/assets/medical.png',
+      image: './assets/medical.png',
       website: 'https://vermillion-biscuit-9ca7df.netlify.app/'
     },
     {
