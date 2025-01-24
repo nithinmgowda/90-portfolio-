@@ -1,4 +1,7 @@
 import { FaGithub, FaExternalLinkAlt, FaFlask, FaBrain, FaRobot } from 'react-icons/fa';
+import notionCloneImg from '../assets/notionclone.png';
+import recipeImg from '../assets/recipe.png';
+import medicalImg from '../assets/medical.png';
 
 const Projects = () => {
   const projects = [
@@ -6,21 +9,21 @@ const Projects = () => {
       title: 'Notion Clone',
       description: 'Developed a Notion Clone using the MERN stack, featuring dynamic note-taking, task management, and a sleek, responsive UI. It supports real-time collaboration and efficient CRUD operations, showcasing a seamless user experience.',
       tags: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'UI/UX'],
-      image: './assets/notionclone.png',
+      image: notionCloneImg,
       github: 'https://github.com/nithinmgowda/notionclone/tree/master/client'
     },
     {
       title: 'Reicetta',
       description: 'Created a recipe app using Kotlin, where AI generates recipes, suggests ingredients, and creates stunning, realistic food images. The app combines innovation with user-friendly design for a delightful cooking experience.',
       tags: ['Kotlin', 'AI', 'Mobile Dev', 'UI/UX'],
-      image: './assets/recipe.png',
+      image: recipeImg,
       github: 'https://github.com/nithinmgowda/RecipeApp'
     },
     {
       title: 'Medical Search System',
       description: 'Developed a Medical Search System using React and API services, enabling users to locate the nearest hospitals for specific diseases or accidents. The system displays hospital specialists and offers a seamless search experience.',
       tags: ['React.js', 'API Integration', 'UI/UX', 'Healthcare'],
-      image: './assets/medical.png',
+      image: medicalImg,
       website: 'https://vermillion-biscuit-9ca7df.netlify.app/'
     },
     {
