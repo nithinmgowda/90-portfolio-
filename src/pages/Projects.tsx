@@ -1,24 +1,7 @@
 import { FaGithub, FaFlask, FaBrain, FaRobot } from 'react-icons/fa';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 const Projects = () => {
-  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      projectRefs.current.forEach((ref, index) => {
-        if (ref) {
-          const scrollPosition = window.pageYOffset;
-          const translateY = scrollPosition * (index % 2 === 0 ? -0.2 : 0.2);
-          ref.style.transform = `translateY(${translateY}px)`;
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const projects = [
     {
       title: 'Notion Clone',
@@ -90,20 +73,14 @@ const Projects = () => {
           return (
             <div 
               key={index} 
-              ref={(el) => {
-                if (projectRefs.current) {
-                  projectRefs.current[index] = el;
-                }
-              }}
               className={`
                 pixel-box 
                 bg-indigo-900 
-                hover:bg-indigo-800 
                 transition-all 
                 duration-300 
                 transform 
-                hover:scale-110 
-                hover:shadow-2xl 
+                hover:scale-105 
+                hover:shadow-xl 
                 group 
                 cursor-pointer 
                 relative 
@@ -117,31 +94,31 @@ const Projects = () => {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               ) : (
-                <div className="aspect-video bg-gray-800 mb-4 flex items-center justify-center transform group-hover:scale-105 transition-all duration-300">
-                  {ProjectIcon && <ProjectIcon size={64} className="text-gray-600 group-hover:text-blue-400 transition-colors duration-300" />}
+                <div className="aspect-video bg-gray-800 mb-4 flex items-center justify-center">
+                  {ProjectIcon && <ProjectIcon size={64} className="text-gray-600" />}
                 </div>
               )}
               <div className="p-4">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-xl group-hover:text-blue-400 transition-colors duration-300">{project.title}</h3>
+                  <h3 className="text-xl">{project.title}</h3>
                   {project.github && (
                     <FaGithub 
                       size={20} 
-                      className="text-white group-hover:text-blue-400 transition-colors duration-300 transform group-hover:scale-110"
+                      className="text-white transform transition-transform duration-300 group-hover:scale-110"
                       onClick={(e) => openGitHubLink(project.github, e)}
                     />
                   )}
                 </div>
-                <p className="text-sm text-gray-300 group-hover:text-gray-100 transition-colors duration-300">{project.description}</p>
+                <p className="text-sm text-gray-300">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {project.tags.map((tag, tagIndex) => (
                     <span 
                       key={tagIndex} 
-                      className="px-2 py-1 bg-blue-700 text-xs rounded-full group-hover:bg-blue-600 transition-colors duration-300"
+                      className="px-2 py-1 bg-blue-700 text-xs rounded-full"
                     >
                       {tag}
                     </span>
