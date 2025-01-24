@@ -1,4 +1,4 @@
-import { FaGithub, FaExternalLinkAlt, FaFlask, FaBrain, FaRobot } from 'react-icons/fa';
+import { FaGithub, FaFlask, FaBrain, FaRobot } from 'react-icons/fa';
 import { useEffect, useRef } from 'react';
 
 const Projects = () => {
