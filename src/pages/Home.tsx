@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const Home = () => {
   const [text, setText] = useState('');
@@ -18,6 +19,10 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const openSocialLink = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div className="pixel-box min-h-[80vh] flex flex-col items-center justify-center">
       <h1 className="text-2xl md:text-4xl mb-8">
@@ -26,7 +31,7 @@ const Home = () => {
       </h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-        <div className="pixel-box bg-blue-900 p-6">
+        <div className="pixel-box bg-blue-900 p-6 relative">
           <h2 className="text-xl mb-4">PLAYER STATS</h2>
           <div className="space-y-2">
             <p>PLAYER NAME: NITHIN M</p>
@@ -34,6 +39,18 @@ const Home = () => {
             <p>EXP: 1 YEAR</p>
             <p>SKILLS: MERN STACK, KOTLIN, FLUTTER, AI TOOLS, PYTHON, GODOT, VCS</p>
             <p>PROJECTS: 9+</p>
+          </div>
+          <div className="flex space-x-4 mt-4 justify-center">
+            <FaLinkedin 
+              size={24} 
+              className="cursor-pointer hover:text-blue-400 transition-colors duration-300"
+              onClick={() => openSocialLink('https://www.linkedin.com/in/nithinmgowda/')}
+            />
+            <FaGithub 
+              size={24} 
+              className="cursor-pointer hover:text-gray-400 transition-colors duration-300"
+              onClick={() => openSocialLink('https://github.com/nithinmgowda')}
+            />
           </div>
         </div>
         
