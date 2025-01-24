@@ -54,6 +54,9 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(1px);
+  max-width: 100%;
+  margin: 0 auto;
+  padding: clamp(1rem, 5vw, 3rem);
 }
 
 .pixel-borders {
@@ -164,4 +167,70 @@ html, body {
   height: 48px;
   object-fit: contain;
   opacity: 1;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .pixel-box {
+    @apply p-4;
+  }
+
+  .retro-button {
+    @apply px-3 py-1.5;
+    border-width: 3px;
+  }
+
+  .custom-cursor {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  body {
+    font-size: 12px;
+  }
+
+  .pixel-borders {
+    border-width: 3px;
+  }
+
+  .pixel-box {
+    @apply p-3;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .retro-button {
+    @apply px-2 py-1;
+    border-width: 2px;
+  }
+
+  .pixel-borders,
+  .pixel-box {
+    border-width: 2px;
+  }
+}
+
+/* Responsive text sizing */
+h1 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+p {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+/* Responsive grid layouts */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
 }
