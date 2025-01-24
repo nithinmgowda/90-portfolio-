@@ -40,7 +40,7 @@ const Home = () => {
         <div className="pixel-box bg-red-900 p-6 relative">
           <div className="absolute top-4 right-4">
             <img 
-              src="/src/assets/pikachu-cursor.gif" 
+              src="/assets/pikachu-cursor.gif" 
               alt="Pikachu using Thunderbolt" 
               className="w-16 h-16 pixelated"
             />
