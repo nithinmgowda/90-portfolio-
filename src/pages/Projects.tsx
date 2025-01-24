@@ -1,5 +1,4 @@
 import { FaGithub, FaFlask, FaBrain, FaRobot } from 'react-icons/fa';
-import { useRef } from 'react';
 
 const Projects = () => {
   const projects = [
