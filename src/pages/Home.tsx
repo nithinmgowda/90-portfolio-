@@ -44,7 +44,7 @@ const Home = () => {
             <FaLinkedin 
               size={24} 
               className="cursor-pointer hover:text-blue-400 transition-colors duration-300"
-              onClick={() => openSocialLink('https://www.linkedin.com/in/nithinmgowda/')}
+              onClick={() => openSocialLink('https://www.linkedin.com/in/nithin-m-0892a5294')}
             />
             <FaGithub 
               size={24} 
