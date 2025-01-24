@@ -26,6 +26,7 @@ const CustomCursor: React.FC = () => {
       <img 
         src="/assets/pokemon-sprites/charizard-1.gif" 
         alt="Charizard cursor" 
+        style={{ opacity: 1 }} // Explicit opacity setting
       />
     </div>
   );

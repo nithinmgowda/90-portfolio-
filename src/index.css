@@ -157,11 +157,12 @@ html, body {
   pointer-events: none;
   z-index: 9999;
   transition: transform 0.1s ease-out;
-  mix-blend-mode: difference;
+  mix-blend-mode: initial;
 }
 
 .custom-cursor img {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
+  opacity: 1;
 }
