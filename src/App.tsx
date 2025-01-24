@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
+import CustomCursor from './components/CustomCursor';
 
 function App() {
   const homeRef = useRef<HTMLDivElement>(null);
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black">
+      <CustomCursor />
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <div 

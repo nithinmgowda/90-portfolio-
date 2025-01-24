@@ -6,16 +6,20 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #4a5568 #1a202c;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Press Start 2P', system-ui;
+  font-family: 'Press Start 2P', cursive;
   background-color: #000;
   color: white;
   line-height: 1.5;
   height: 100%;
+  cursor: none; /* Hide default cursor */
+  overflow-x: hidden;
 }
 
 #root {
@@ -92,13 +96,12 @@ body {
 }
 
 .blink {
-  animation: blink 1s steps(2, start) infinite;
+  animation: blink 0.7s infinite;
 }
 
 @keyframes blink {
-  to {
-    visibility: hidden;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Custom scrollbar for snap scrolling container */
@@ -125,21 +128,40 @@ body {
   background: rgba(255, 255, 255, 1);
 }
 
-/* Scrollbar styling */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.3);
+  background: #1a202c;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  background: #4a5568;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 1);
+  background: #718096;
+}
+
+/* Smooth Scroll Transition */
+html, body {
+  scroll-behavior: smooth;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease-out;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
 }
