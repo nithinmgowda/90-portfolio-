@@ -1,6 +1,24 @@
 import { FaGithub, FaExternalLinkAlt, FaFlask, FaBrain, FaRobot } from 'react-icons/fa';
+import { useEffect, useRef } from 'react';
 
 const Projects = () => {
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      projectRefs.current.forEach((ref, index) => {
+        if (ref) {
+          const scrollPosition = window.pageYOffset;
+          const translateY = scrollPosition * (index % 2 === 0 ? -0.2 : 0.2);
+          ref.style.transform = `translateY(${translateY}px)`;
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const projects = [
     {
       title: 'Notion Clone',
@@ -52,9 +70,12 @@ const Projects = () => {
     github: 'https://github.com/nithinmgowda/Textsummarizer'
   };
 
-  const openLink = (link: string | null) => {
-    if (link) {
-      window.open(link, '_blank', 'noopener,noreferrer');
+  const openGitHubLink = (github: string | null, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    if (github) {
+      window.open(github, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -64,14 +85,32 @@ const Projects = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => {
-          const projectLink = project.website || project.github;
           const ProjectIcon = project.icon;
           
           return (
             <div 
               key={index} 
-              className="pixel-box bg-indigo-900 hover:bg-indigo-800 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group cursor-pointer relative"
-              onClick={() => openLink(projectLink)}
+              ref={(el) => {
+                if (projectRefs.current) {
+                  projectRefs.current[index] = el;
+                }
+              }}
+              className={`
+                pixel-box 
+                bg-indigo-900 
+                hover:bg-indigo-800 
+                transition-all 
+                duration-300 
+                transform 
+                hover:scale-110 
+                hover:shadow-2xl 
+                group 
+                cursor-pointer 
+                relative 
+                overflow-hidden
+                ${project.github ? 'hover:border-2 hover:border-blue-500' : ''}
+              `}
+              onClick={() => project.github && openGitHubLink(project.github)}
             >
               {project.image ? (
                 <div className="aspect-video bg-gray-800 mb-4 overflow-hidden">
@@ -89,28 +128,13 @@ const Projects = () => {
               <div className="p-4">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-xl group-hover:text-blue-400 transition-colors duration-300">{project.title}</h3>
-                  <div className="flex gap-2">
-                    {project.github && (
-                      <FaGithub 
-                        size={20} 
-                        className="text-white group-hover:text-blue-400 transition-colors duration-300 transform group-hover:scale-110"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openLink(project.github);
-                        }}
-                      />
-                    )}
-                    {project.website && (
-                      <FaExternalLinkAlt 
-                        size={18} 
-                        className="text-white group-hover:text-blue-400 transition-colors duration-300 transform group-hover:scale-110"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openLink(project.website);
-                        }}
-                      />
-                    )}
-                  </div>
+                  {project.github && (
+                    <FaGithub 
+                      size={20} 
+                      className="text-white group-hover:text-blue-400 transition-colors duration-300 transform group-hover:scale-110"
+                      onClick={(e) => openGitHubLink(project.github, e)}
+                    />
+                  )}
                 </div>
                 <p className="text-sm text-gray-300 group-hover:text-gray-100 transition-colors duration-300">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mt-2">

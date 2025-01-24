@@ -10,28 +10,7 @@ function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
 
-  const staticPokemon = [
-    {
-      position: 'bottom-left' as const,
-      sprite: '/assets/pokemon-sprites/pidgeot-1.gif',
-      size: 64
-    },
-    {
-      position: 'bottom-right' as const,
-      sprite: '/assets/pokemon-sprites/flygon-1.gif',
-      size: 64
-    },
-    {
-      position: 'bottom-center-left' as const,
-      sprite: '/assets/pokemon-sprites/arcanine-1.gif',
-      size: 64
-    },
-    {
-      position: 'bottom-center-right' as const,
-      sprite: '/assets/pokemon-sprites/growlithe-1.gif',
-      size: 64
-    }
-  ];
+  const staticPokemon = [] as const;
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -50,18 +29,6 @@ function App() {
           }} 
         />
         <div className="absolute inset-0 bg-black bg-opacity-20 backdrop-blur-[2px]" />
-      </div>
-
-      {/* Static Pokemon */}
-      <div className="fixed inset-0 z-50 pointer-events-auto">
-        {staticPokemon.map((pokemon, index) => (
-          <FlyingPokemon
-            key={index}
-            position={pokemon.position}
-            sprite={pokemon.sprite}
-            size={pokemon.size}
-          />
-        ))}
       </div>
 
       {/* Navbar */}
