@@ -9,44 +9,26 @@ function App() {
   const homeRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  useEffect(() => {
-    // Create audio element
-    const audio = new Audio('/assets/audio/pokemon-theme.mp3');
-    audioRef.current = audio;
-    audio.loop = true;
-    audio.volume = 0.3;
-    
-    // Function to start playing
-    const startPlaying = () => {
-      audio.play().catch(error => console.log("Audio playback failed:", error));
-    };
-
-    // Try to play when component mounts
-    startPlaying();
-
-    // Add click event listener to document to start playing on first user interaction
-    const handleInteraction = () => {
-      startPlaying();
-      document.removeEventListener('click', handleInteraction);
-    };
-    document.addEventListener('click', handleInteraction);
-
-    return () => {
-      audio.pause();
-      audio.currentTime = 0;
-      document.removeEventListener('click', handleInteraction);
-    };
-  }, []);
-
   return (
     <div className="min-h-screen bg-black">
       <CustomCursor />
+      {/* Background Music */}
+      <audio 
+        autoPlay 
+        loop 
+        style={{ display: 'none' }}
+        preload="auto"
+        volume="0.3"
+      >
+        <source src="/assets/audio/pokemon-theme.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+      
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <div 
