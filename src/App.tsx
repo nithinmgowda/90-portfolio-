@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -9,26 +9,40 @@ function App() {
   const homeRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
-  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
+    // Create audio element
     const audio = new Audio('/assets/audio/pokemon-theme.mp3');
+    audioRef.current = audio;
     audio.loop = true;
     audio.volume = 0.3;
     
-    if (!isMuted) {
+    // Function to start playing
+    const startPlaying = () => {
       audio.play().catch(error => console.log("Audio playback failed:", error));
-    }
+    };
+
+    // Try to play when component mounts
+    startPlaying();
+
+    // Add click event listener to document to start playing on first user interaction
+    const handleInteraction = () => {
+      startPlaying();
+      document.removeEventListener('click', handleInteraction);
+    };
+    document.addEventListener('click', handleInteraction);
 
     return () => {
       audio.pause();
       audio.currentTime = 0;
+      document.removeEventListener('click', handleInteraction);
     };
-  }, [isMuted]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-black">
@@ -52,17 +66,6 @@ function App() {
         about: () => scrollToSection(aboutRef),
         projects: () => scrollToSection(projectsRef)
       }} />
-
-      {/* Background Music Control */}
-      <button 
-        onClick={() => setIsMuted(!isMuted)} 
-        className="fixed bottom-4 right-4 z-50 bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-full shadow-lg transition-all duration-300 flex items-center space-x-2"
-      >
-        <span className="material-icons">
-          {isMuted ? '🔇' : '🔊'}
-        </span>
-        <span>{isMuted ? 'Play Music' : 'Mute Music'}</span>
-      </button>
 
       {/* Main Content */}
       <main className="relative z-20">
