@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -10,12 +10,24 @@ function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.3;
-    }
-  }, []);
+    const handleFirstInteraction = () => {
+      if (audioRef.current && !isAudioPlaying) {
+        audioRef.current.volume = 0.3;
+        audioRef.current.play()
+          .then(() => {
+            setIsAudioPlaying(true);
+            document.removeEventListener('click', handleFirstInteraction);
+          })
+          .catch(error => console.log('Audio playback failed:', error));
+      }
+    };
+
+    document.addEventListener('click', handleFirstInteraction);
+    return () => document.removeEventListener('click', handleFirstInteraction);
+  }, [isAudioPlaying]);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -27,9 +39,7 @@ function App() {
       {/* Background Music */}
       <audio 
         ref={audioRef}
-        autoPlay 
         loop 
-        style={{ display: 'none' }}
         preload="auto"
       >
         <source src="assets/audio/pokemon-theme.mp3" type="audio/mp3" />

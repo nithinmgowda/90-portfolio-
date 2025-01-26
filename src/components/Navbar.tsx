@@ -32,7 +32,7 @@ const Navbar: ({ onNavClick }: NavbarProps) => JSX.Element = ({ onNavClick }) =>
               <img 
                 src="/assets/ash_image.png" 
                 alt="Logo" 
-                className="w-12 h-12 rounded-full border-2 border-red-600/50 object-cover"
+                className="w-12 h-12 rounded-full border-2 border-white/20 object-cover filter brightness-90"
               />
             </div>
             <div className="flex-grow flex items-center justify-center gap-6">
