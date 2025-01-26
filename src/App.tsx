@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
 import CustomCursor from './components/CustomCursor';
+import LoadingScreen from './components/LoadingScreen';
 
 function App() {
   const homeRef = useRef<HTMLDivElement>(null);
@@ -11,6 +12,7 @@ function App() {
   const projectsRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isAudioInitialized, setIsAudioInitialized] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const initializeAudio = () => {
     if (audioRef.current && !isAudioInitialized) {
@@ -57,17 +59,21 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black">
-      <CustomCursor />
-      {/* Background Music */}
-      <audio 
-        ref={audioRef}
-        loop 
-        preload="auto"
-      >
-        <source src="assets/audio/pokemon-theme.mp3" type="audio/mp3" />
-        Your browser does not support the audio element.
-      </audio>
+    <>
+      {isLoading && (
+        <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+      )}
+      <div className={`min-h-screen bg-black transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
+        <CustomCursor />
+        {/* Background Music */}
+        <audio 
+          ref={audioRef}
+          loop 
+          preload="auto"
+        >
+          <source src="assets/audio/pokemon-theme.mp3" type="audio/mp3" />
+          Your browser does not support the audio element.
+        </audio>
       
       {/* Background */}
       <div className="fixed inset-0 z-0">
@@ -122,6 +128,7 @@ function App() {
         </section>
       </main>
     </div>
+    </>
   );
 }
 
