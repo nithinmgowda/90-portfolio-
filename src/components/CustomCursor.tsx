@@ -21,7 +21,7 @@ const CustomCursor: React.FC = () => {
   const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
-    let moveTimeout: NodeJS.Timeout;
+    let moveTimeout: ReturnType<typeof setTimeout>;
 
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
