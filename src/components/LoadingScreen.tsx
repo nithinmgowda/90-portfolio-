@@ -3,12 +3,16 @@ import './LoadingScreen.css';
 
 interface LoadingScreenProps {
   onLoadingComplete: () => void;
+  initializeAudio: () => void;
 }
 
-const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
+const LoadingScreen = ({ onLoadingComplete, initializeAudio }: LoadingScreenProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    // Try to play audio immediately when loading screen appears
+    initializeAudio();
+
     // Start fade out after 2 seconds
     const timer = setTimeout(() => {
       setIsVisible(false);
@@ -17,11 +21,11 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [onLoadingComplete]);
+  }, [onLoadingComplete, initializeAudio]);
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center bg-black
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-blue-900
         ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
         transition-opacity duration-1000`}
     >

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -14,7 +14,7 @@ function App() {
   const [isAudioInitialized, setIsAudioInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const initializeAudio = () => {
+  const initializeAudio = useCallback(() => {
     if (audioRef.current && !isAudioInitialized) {
       audioRef.current.volume = 0.35;
       const playPromise = audioRef.current.play();
@@ -28,31 +28,30 @@ function App() {
           });
       }
     }
-  };
+  }, [isAudioInitialized]);
 
   useEffect(() => {
-    // Try autoplay first
-    initializeAudio();
+    if (!isAudioInitialized) {
+      // Set up event listeners for various interactions
+      const handleInteraction = () => {
+        initializeAudio();
+      };
 
-    // Set up event listeners for various interactions
-    const handleInteraction = () => {
-      initializeAudio();
-    };
+      // Mouse clicks
+      document.addEventListener('click', handleInteraction);
+      // Keyboard presses
+      document.addEventListener('keydown', handleInteraction);
+      // Touch events
+      document.addEventListener('touchstart', handleInteraction);
 
-    // Mouse clicks
-    document.addEventListener('click', handleInteraction);
-    // Keyboard presses
-    document.addEventListener('keydown', handleInteraction);
-    // Touch events
-    document.addEventListener('touchstart', handleInteraction);
-
-    return () => {
-      // Clean up event listeners
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('keydown', handleInteraction);
-      document.removeEventListener('touchstart', handleInteraction);
-    };
-  }, [isAudioInitialized]);
+      return () => {
+        // Clean up event listeners
+        document.removeEventListener('click', handleInteraction);
+        document.removeEventListener('keydown', handleInteraction);
+        document.removeEventListener('touchstart', handleInteraction);
+      };
+    }
+  }, [isAudioInitialized, initializeAudio]);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -61,7 +60,10 @@ function App() {
   return (
     <>
       {isLoading && (
-        <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+        <LoadingScreen 
+          onLoadingComplete={() => setIsLoading(false)} 
+          initializeAudio={initializeAudio}
+        />
       )}
       <div className={`min-h-screen bg-black transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
         <CustomCursor />
@@ -89,11 +91,14 @@ function App() {
       </div>
 
       {/* Navbar */}
-      <Navbar onNavClick={{
-        home: () => scrollToSection(homeRef),
-        about: () => scrollToSection(aboutRef),
-        projects: () => scrollToSection(projectsRef)
-      }} />
+      <Navbar
+        onNavClick={{
+          home: () => scrollToSection(homeRef),
+          about: () => scrollToSection(aboutRef),
+          projects: () => scrollToSection(projectsRef),
+        }}
+        initializeAudio={initializeAudio}
+      />
 
       {/* Main Content */}
       <main className="relative z-20">
