@@ -1,0 +1,18 @@
+.custom-cursor {
+  transition: transform 0.05s ease-out;
+  will-change: transform;
+}
+
+.custom-cursor img {
+  animation: fadeInOut 3s infinite;
+  transition: filter 0.3s ease;
+}
+
+.custom-cursor img:hover {
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.7)) brightness(1.2) !important;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
