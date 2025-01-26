@@ -28,6 +28,7 @@ const Navbar: ({ onNavClick }: NavbarProps) => JSX.Element = ({ onNavClick }) =>
     if (audio) {
       audio.volume = 0.35;
       audio.play().catch(error => console.log('Audio playback failed:', error));
+      audio.volume = 0.35; // Ensure consistent volume
     }
   };
 
