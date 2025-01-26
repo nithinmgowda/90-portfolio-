@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -10,51 +10,6 @@ function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-
-  useEffect(() => {
-    const handleFirstInteraction = () => {
-      if (audioRef.current && !isAudioPlaying) {
-        audioRef.current.volume = 0.5;
-        const playPromise = audioRef.current.play();
-        
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsAudioPlaying(true);
-            })
-            .catch(error => {
-              console.log('Audio playback failed:', error);
-            });
-        }
-      }
-    };
-
-    // Try to play immediately
-    if (audioRef.current) {
-      audioRef.current.volume = 0.5;
-      const playPromise = audioRef.current.play();
-      
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setIsAudioPlaying(true);
-          })
-          .catch(() => {
-            // If immediate play fails, wait for user interaction
-            document.addEventListener('click', handleFirstInteraction);
-            document.addEventListener('keydown', handleFirstInteraction);
-            document.addEventListener('touchstart', handleFirstInteraction);
-          });
-      }
-    }
-
-    return () => {
-      document.removeEventListener('click', handleFirstInteraction);
-      document.removeEventListener('keydown', handleFirstInteraction);
-      document.removeEventListener('touchstart', handleFirstInteraction);
-    };
-  }, [isAudioPlaying]);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -68,6 +23,7 @@ function App() {
         ref={audioRef}
         loop 
         preload="auto"
+        volume={0.5}
       >
         <source src="assets/audio/pokemon-theme.mp3" type="audio/mp3" />
         Your browser does not support the audio element.

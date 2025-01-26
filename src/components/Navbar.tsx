@@ -23,12 +23,23 @@ const Navbar: ({ onNavClick }: NavbarProps) => JSX.Element = ({ onNavClick }) =>
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  const handleHover = () => {
+    const audio = document.querySelector('audio');
+    if (audio) {
+      audio.volume = 0.35;
+      audio.play().catch(error => console.log('Audio playback failed:', error));
+    }
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 h-20 z-50 transition-transform duration-300 ${!isVisible ? '-translate-y-full' : ''}`}>
       <nav className="h-full bg-black bg-opacity-50 backdrop-blur-sm border-b-2 border-red-600/20">
         <div className="container mx-auto h-full px-6">
           <div className="flex items-center h-full gap-6">
-            <div className="flex-shrink-0">
+            <div 
+              className="flex-shrink-0 cursor-pointer" 
+              onMouseEnter={handleHover}
+            >
               <img 
                 src="/assets/ash_image.png" 
                 alt="Logo" 
