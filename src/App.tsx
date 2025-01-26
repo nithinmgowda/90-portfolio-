@@ -32,7 +32,7 @@ function App() {
         style={{ display: 'none' }}
         preload="auto"
       >
-        <source src="/assets/audio/pokemon-theme.mp3" type="audio/mp3" />
+        <source src="assets/audio/pokemon-theme.mp3" type="audio/mp3" />
         Your browser does not support the audio element.
       </audio>
       
