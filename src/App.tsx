@@ -15,18 +15,45 @@ function App() {
   useEffect(() => {
     const handleFirstInteraction = () => {
       if (audioRef.current && !isAudioPlaying) {
-        audioRef.current.volume = 0.3;
-        audioRef.current.play()
-          .then(() => {
-            setIsAudioPlaying(true);
-            document.removeEventListener('click', handleFirstInteraction);
-          })
-          .catch(error => console.log('Audio playback failed:', error));
+        audioRef.current.volume = 0.5;
+        const playPromise = audioRef.current.play();
+        
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsAudioPlaying(true);
+            })
+            .catch(error => {
+              console.log('Audio playback failed:', error);
+            });
+        }
       }
     };
 
-    document.addEventListener('click', handleFirstInteraction);
-    return () => document.removeEventListener('click', handleFirstInteraction);
+    // Try to play immediately
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5;
+      const playPromise = audioRef.current.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsAudioPlaying(true);
+          })
+          .catch(() => {
+            // If immediate play fails, wait for user interaction
+            document.addEventListener('click', handleFirstInteraction);
+            document.addEventListener('keydown', handleFirstInteraction);
+            document.addEventListener('touchstart', handleFirstInteraction);
+          });
+      }
+    }
+
+    return () => {
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('keydown', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+    };
   }, [isAudioPlaying]);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
