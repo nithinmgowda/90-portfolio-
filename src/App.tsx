@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -10,12 +10,47 @@ function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [isAudioInitialized, setIsAudioInitialized] = useState(false);
+
+  const initializeAudio = () => {
+    if (audioRef.current && !isAudioInitialized) {
+      audioRef.current.volume = 0.35;
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsAudioInitialized(true);
+          })
+          .catch((error) => {
+            console.log('Audio playback failed:', error);
+          });
+      }
+    }
+  };
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.35;
-    }
-  }, []);
+    // Try autoplay first
+    initializeAudio();
+
+    // Set up event listeners for various interactions
+    const handleInteraction = () => {
+      initializeAudio();
+    };
+
+    // Mouse clicks
+    document.addEventListener('click', handleInteraction);
+    // Keyboard presses
+    document.addEventListener('keydown', handleInteraction);
+    // Touch events
+    document.addEventListener('touchstart', handleInteraction);
+
+    return () => {
+      // Clean up event listeners
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+    };
+  }, [isAudioInitialized]);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
