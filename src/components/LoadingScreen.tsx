@@ -25,7 +25,7 @@ const LoadingScreen = ({ onLoadingComplete, initializeAudio }: LoadingScreenProp
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center bg-blue-900
+      className={`loading-screen fixed inset-0 z-[100] flex items-center justify-center
         ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
         transition-opacity duration-1000`}
     >
