@@ -33,7 +33,7 @@ const LoadingScreen = ({ onLoadingComplete, initializeAudio }: LoadingScreenProp
         <h1 
           className="text-4xl md:text-6xl font-bold text-white font-['Press_Start_2P'] loading-text"
         >
-          Nithin&apos;s Portfolio
+          Nithin&apos;s Portfolio<sup>®</sup>
         </h1>
       </div>
     </div>
