@@ -27,11 +27,11 @@ const Projects = () => {
       website: 'https://vermillion-biscuit-9ca7df.netlify.app/'
     },
     {
-      title: 'Wine Quality Analysis',
-      description: 'Implemented a Wine Quality Analysis project using SVM, Logistic Regression, Decision Tree, and Random Forest algorithms to predict wine quality based on its chemical properties. The project highlights comparative model performance and data-driven insights.',
-      tags: ['SVM', 'Machine Learning', 'Python', 'Data Analysis'],
+      title: 'Renewable Energy Forecast',
+      description: 'Developed a comprehensive renewable energy forecasting system using LSTM, XGBoost, and Linear Regression models. The project analyzes global renewable energy production data from 1985 to 2022, providing accurate predictions and insights into sustainable energy trends across different countries.',
+      tags: ['LSTM', 'XGBoost', 'Machine Learning', 'Time Series Analysis', 'Python'],
       icon: FaFlask,
-      github: 'https://github.com/nithinmgowda/winequality',
+      github: 'https://github.com/nithinmgowda/Renewable-energy-forecast',
       website: null
     },
     {
